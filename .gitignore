@@ -1,0 +1,6 @@
+/.idea
+/doc
+/.rvmrc
+/.project
+/spec/fixtures/
+/Gemfile.lock
