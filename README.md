@@ -20,10 +20,10 @@ simply include the ant::ivy class. You can also specify a particular version lik
 
 You can use this module to install antlibs. Here is an example that installs the Maven ant tasks.
 
-  ant::lib{'maven-ant-tasks':
-    source_url => 'http://archive.apache.org/dist/maven/binaries/maven-ant-tasks-2.1.3.jar',
-    version => '2.1.3'
-  }
+    ant::lib{'maven-ant-tasks':
+      source_url => 'http://archive.apache.org/dist/maven/binaries/maven-ant-tasks-2.1.3.jar',
+      version => '2.1.3'
+    }
 
 This will download the maven ant tasks jar file from the specified URL and place the 
 maven-ant-tasks-2.1.3.jar file under the Ant lib directory.
