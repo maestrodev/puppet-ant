@@ -1,5 +1,5 @@
 class ant::ivy($version="2.2.0") {
-  include ant::params
+  require ant
 
   wget::fetch { "ivy":
     source => "http://mirrors.gigenet.com/apache//ant/ivy/${version}/apache-ivy-${version}-bin.tar.gz",
