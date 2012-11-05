@@ -15,7 +15,7 @@ describe "ant::ivy" do
 
   context "specific Ant + Ivy version" do
     let(:pre_condition) { %Q[
-      class { 'ant::params': version => '1.7.1' }
+      class { 'ant': version => '1.7.1' }
     ] } 
     let(:params) { {
         :version => "2.0.0"
