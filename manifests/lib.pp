@@ -5,11 +5,11 @@
 # [version]    The version of the library to install.
 # [source_url] The location of the ant library jar file.
 define ant::lib($version, $source_url) {
-  require ant
-  
+
   wget::fetch { "${name}-antlib":
-   source => $source_url,
-   destination => "/usr/share/apache-ant-${ant::params::version}/lib/${name}-$version.jar",   
+    source      => $source_url,
+    destination => "/usr/share/apache-ant-${ant::params::version}/lib/${name}-$version.jar",
+    require     => Class['ant'],
   }
- 
+
 }
