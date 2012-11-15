@@ -1,5 +1,5 @@
 name    'maestrodev-ant'
-version '1.0.0'
+version '1.0.3'
 source 'http://github.com/maestrodev/puppet-ant.git'
 author 'maestrodev'
 license 'Apache License, Version 2.0'
