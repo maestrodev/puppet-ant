@@ -7,7 +7,7 @@ class ant::ivy($version = '2.2.0') {
   include ant
 
   wget::fetch { 'ivy':
-    source      => "http://mirrors.gigenet.com/apache/ant/ivy/${version}/apache-ivy-${version}-bin.tar.gz",
+    source      => "http://archive.apache.org/dist/ant/ivy/${version}/apache-ivy-${version}-bin.tar.gz",
     destination => "${ant::srcdir}/apache-ivy-${version}-bin.tar.gz",
     require     => Class[ant],
   } ->
