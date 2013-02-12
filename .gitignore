@@ -1,5 +1,9 @@
-/.idea
-/doc
-/.rvmrc
-/.project
-/spec/fixtures/
+.idea
+.rvmrc
+.project
+.librarian/
+.tmp/
+pkg/
+doc/
+spec/fixtures/
+modules/
