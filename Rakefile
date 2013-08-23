@@ -18,5 +18,3 @@ end
 task :spec_prep => :librarian_spec_prep
 
 task :default => [:clean, :spec]
-
-task :release => [:clean, :spec, 'module:tag', 'module:push', 'module:bump_commit']
