@@ -3,21 +3,24 @@
 # ==Parameters
 #
 # [version]  The Ant version to install.
-class ant($version = $ant::params::version) inherits ant::params {
+class ant($version = $ant::params::version, $install_dir = $ant::params::install_dir, $isdefault = true) inherits ant::params {
   $srcdir = $ant::params::srcdir
-  wget::fetch { 'ant':
+  wget::fetch { "ant-${version}":
     source      =>  "http://archive.apache.org/dist/ant/binaries/apache-ant-${version}-bin.tar.gz",
     destination => "${srcdir}/apache-ant-${version}-bin.tar.gz"
   } ->
-  exec { 'unpack-ant':
+  exec { "unpack-ant-${version}":
     command => "tar zxvf ${srcdir}/apache-ant-${version}-bin.tar.gz",
-    cwd     => '/usr/share/',
-    creates => "/usr/share/apache-ant-${version}",
+    cwd     => "${install_dir}",
+    creates => "${install_dir}/apache-ant-${version}",
     path    => '/bin/:/usr/bin',
-  } ->
-  file { '/usr/bin/ant':
-    ensure => link,
-    target => "/usr/share/apache-ant-${version}/bin/ant",
   }
-
+  
+  if ($isdefault) {
+	  file { '/usr/bin/ant':
+	    ensure => link,
+	    target => "${install_dir}/apache-ant-${version}/bin/ant",
+	    require => Exec["unpack-ant-${version}"]
+	  }
+  }
 }
