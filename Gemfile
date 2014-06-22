@@ -7,5 +7,5 @@ group :rake do
   gem 'puppet-lint',  '>=0.1.12'
   gem 'puppetlabs_spec_helper'
   gem 'puppet-blacksmith', '>=1.0.0'
-  gem 'librarian-puppet-maestrodev', '>=0.9.7.5'
+  gem 'librarian-puppet', '>=1.0.0'
 end

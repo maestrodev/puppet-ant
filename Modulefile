@@ -8,4 +8,5 @@ description 'Puppet module for installing Ant and/or Ivy from the Apache Softwar
 project_page 'http://github.com/maestrodev/puppet-ant'
 
 ## Add dependencies, if any:
-dependency 'maestrodev/wget', '>= 0.0.1'
+dependency 'maestrodev/wget', '>= 1.0.0'
+dependency 'puppetlabs/stdlib', '>= 3.2.0'

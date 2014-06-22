@@ -5,6 +5,14 @@
 # [version]  The Ant version to install.
 class ant($version = $ant::params::version) inherits ant::params {
   $srcdir = $ant::params::srcdir
+
+  case $::kernel {
+    'Linux': {
+      ensure_packages(['tar'])
+      Package['tar'] -> Exec['unpack-ant']
+    }
+  }
+
   wget::fetch { 'ant':
     source      =>  "http://archive.apache.org/dist/ant/binaries/apache-ant-${version}-bin.tar.gz",
     destination => "${srcdir}/apache-ant-${version}-bin.tar.gz"
