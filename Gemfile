@@ -6,6 +6,6 @@ group :rake do
   gem 'rake',         '>=0.9.2.2'
   gem 'puppet-lint',  '>=0.1.12'
   gem 'puppetlabs_spec_helper'
-  gem 'puppet-blacksmith', '>=1.0.0'
+  gem 'puppet-blacksmith', '>=2.1.0'
   gem 'librarian-puppet', '>=1.0.0'
 end
