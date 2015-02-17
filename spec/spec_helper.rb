@@ -18,7 +18,8 @@ RSpec.configure do |c|
     :operatingsystemrelease => '6.6',
     :kernel => 'Linux',
     :osfamily => 'RedHat',
-    :architecture => 'x86_64'
+    :architecture => 'x86_64',
+    :clientcert => 'puppet.acme.com'
   }.merge({"http_proxy"=>nil})
 
   c.before do
