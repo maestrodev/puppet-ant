@@ -1,20 +1,28 @@
-require 'bundler'
-Bundler.require(:rake)
+# This file is managed centrally by modulesync
+#   https://github.com/maestrodev/puppet-modulesync
+
 require 'rake/clean'
-
-CLEAN.include('spec/fixtures/', 'doc', 'pkg')
-CLOBBER.include('.tmp', '.librarian')
-
 require 'puppetlabs_spec_helper/rake_tasks'
+require 'puppet-lint/tasks/puppet-lint'
 require 'puppet_blacksmith/rake_tasks'
 
-PuppetLint.configuration.send("disable_80chars")
+CLEAN.include('spec/fixtures/manifests/', 'spec/fixtures/modules/', 'doc', 'pkg')
+CLOBBER.include('.tmp', '.librarian')
 
-# use librarian-puppet to manage fixtures instead of .fixtures.yml
-# offers more possibilities like explicit version management, forge downloads,...
+ENV['STRICT_VARIABLES']='yes' unless Gem::Version.new(Puppet.version) < Gem::Version.new("3.5.0")
+
 task :librarian_spec_prep do
- sh "librarian-puppet install --path=spec/fixtures/modules/"
+  sh "librarian-puppet install --path=spec/fixtures/modules/"
 end
 task :spec_prep => :librarian_spec_prep
 
-task :default => [:clean, :spec]
+Rake::Task[:lint].clear # workaround https://github.com/rodjek/puppet-lint/issues/331
+PuppetLint.configuration.relative = true # https://github.com/rodjek/puppet-lint/pull/334
+PuppetLint::RakeTask.new :lint do |config|
+  config.pattern = 'manifests/**/*.pp'
+  config.disable_checks = ["80chars", "class_inherits_from_params_class"]
+  config.fail_on_warnings = true
+  # config.relative = true
+end
+
+task :default => [:clean, :validate, :lint, :spec]
