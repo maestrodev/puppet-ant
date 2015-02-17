@@ -11,6 +11,7 @@ class ant($version = $ant::params::version) inherits ant::params {
       ensure_packages(['tar'])
       Package['tar'] -> Exec['unpack-ant']
     }
+    default: {}
   }
 
   wget::fetch { 'ant':

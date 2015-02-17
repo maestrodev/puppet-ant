@@ -10,7 +10,7 @@ define ant::lib($version, $source_url) {
 
   wget::fetch { "${name}-antlib":
     source      => $source_url,
-    destination => "/usr/share/apache-ant-${ant::params::version}/lib/${name}-$version.jar",
+    destination => "/usr/share/apache-ant-${ant::params::version}/lib/${name}-${version}.jar",
     require     => Class['ant'],
   }
 
