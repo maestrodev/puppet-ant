@@ -1,0 +1,4 @@
+---
+spec/spec_helper.rb:
+  default_facts:
+    http_proxy: null
