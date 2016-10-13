@@ -27,6 +27,9 @@ class ant($version = $ant::params::version) inherits ant::params {
   file { '/usr/bin/ant':
     ensure => link,
     target => "/usr/share/apache-ant-${version}/bin/ant",
+  } ->
+  file { '/usr/share/ant':
+    ensure => link,
+    target => "/usr/share/apache-ant-${version}",
   }
-
 }
