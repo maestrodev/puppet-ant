@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe "ant::tasks::sonar" do
-  
+  let(:pre_condition) { %Q[
+    include ant
+  ] }
+
   context "default versions" do
     it { should contain_Ant__Lib('sonar-ant-task').with({
       :source_url => 'http://repository.codehaus.org/org/codehaus/sonar-plugins/sonar-ant-task/1.2/sonar-ant-task-1.2.jar',

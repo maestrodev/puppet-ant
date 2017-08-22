@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe "ant" do
+  let(:pre_condition) { %Q[
+    unless (defined(ant)) {
+      include ant
+    }
+  ] }
 
   context 'default ant version' do
     version = '1.8.2'
