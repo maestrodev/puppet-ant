@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe "ant::tasks::maven" do
-  
+  let(:pre_condition) { %Q[
+    include ant
+  ] }
+
   context "default versions" do
     it { should contain_Ant__Lib('maven-ant-tasks').with({
       :source_url => 'http://archive.apache.org/dist/maven/binaries/maven-ant-tasks-2.1.3.jar',
