@@ -1,0 +1,21 @@
+{
+  "name": "maestrodev-ant",
+  "summary": "Apache ant module for Puppet",
+  "version": "1.0.8",
+  "source": "https://github.com/maestrodev/puppet-ant.git",
+  "author": "maestrodev",
+  "license": "Apache-2.0",
+  "project_page": "http://github.com/maestrodev/puppet-ant",
+  "operatingsystem_support": [],
+  "requirements": [],
+  "dependencies": [
+    {
+      "name": "maestrodev/wget",
+      "version_requirement": ">= 1.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 3.2.0"
+    }
+  ]
+}
