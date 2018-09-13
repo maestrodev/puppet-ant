@@ -3,22 +3,26 @@
 # ==Parameters
 #
 # [version]  The Ivy version to install.
-class ant::ivy($version = '2.2.0') {
+# [target]   The destination for the Ivy install. Defaults to '/usr/share',
+class ant::ivy(
+  $version = '2.2.0',
+  $target  = $ant::params::target,
+) {
   include ant
 
   wget::fetch { 'ivy':
     source      => "http://archive.apache.org/dist/ant/ivy/${version}/apache-ivy-${version}-bin.tar.gz",
     destination => "${ant::srcdir}/apache-ivy-${version}-bin.tar.gz",
     require     => Class[ant],
-  } ->
-  exec { 'unpack-ivy':
+  }
+  -> exec { 'unpack-ivy':
     command => "tar zxvf ${ant::srcdir}/apache-ivy-${version}-bin.tar.gz",
-    cwd     => '/usr/share',
+    cwd     => $target,
     path    => '/bin/:/usr/bin',
-    creates => "/usr/share/apache-ivy-${version}"
-  } ->
-  file { "/usr/share/apache-ant-${ant::version}/lib/ivy-${version}.jar":
+    creates => "${target}/apache-ivy-${version}"
+  }
+  -> file { "${target}/apache-ant-${ant::version}/lib/ivy-${version}.jar":
     ensure => link,
-    target => "/usr/share/apache-ivy-${version}/ivy-${version}.jar",
+    target => "${target}/apache-ivy-${version}/ivy-${version}.jar",
   }
 }
