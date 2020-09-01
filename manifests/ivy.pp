@@ -6,16 +6,17 @@
 class ant::ivy($version = '2.2.0') {
   include ant
 
-  wget::fetch { 'ivy':
-    source      => "http://archive.apache.org/dist/ant/ivy/${version}/apache-ivy-${version}-bin.tar.gz",
-    destination => "${ant::srcdir}/apache-ivy-${version}-bin.tar.gz",
-    require     => Class[ant],
-  } ->
-  exec { 'unpack-ivy':
-    command => "tar zxvf ${ant::srcdir}/apache-ivy-${version}-bin.tar.gz",
-    cwd     => '/usr/share',
-    path    => '/bin/:/usr/bin',
-    creates => "/usr/share/apache-ivy-${version}"
+  archive { "${ant::srcdir}/apache-ivy-${version}-bin.tar.gz":
+    ensure          => present,
+    extract         => true,
+    extract_command => 'tar zxvf %s',
+    extract_path    => '/usr/share/',
+    source          => "https://archive.apache.org/dist/ant/ivy/${version}/apache-ivy-${version}-bin.tar.gz",
+    creates         => "/usr/share/apache-ivy-${version}",
+    cleanup         => true,
+    proxy_server    => $ant::params::proxy_server,
+    proxy_type      => $ant::params::proxy_type,
+    require         => Class['ant'],
   } ->
   file { "/usr/share/apache-ant-${ant::version}/lib/ivy-${version}.jar":
     ensure => link,
