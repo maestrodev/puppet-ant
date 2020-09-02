@@ -8,10 +8,14 @@ define ant::lib($version, $source_url) {
 
   include ant::params
 
-  wget::fetch { "${name}-antlib":
-    source      => $source_url,
-    destination => "/usr/share/apache-ant-${ant::params::version}/lib/${name}-${version}.jar",
-    require     => Class['ant'],
+  archive { "/usr/share/apache-ant-${ant::params::version}/lib/${name}-${version}.jar":
+    ensure       => present,
+    extract      => false,
+    source       => $source_url,
+    creates      => "/usr/share/apache-ant-${ant::params::version}/lib/${name}-${version}.jar",
+    cleanup      => false,
+    proxy_server => $ant::params::proxy_server,
+    proxy_type   => $ant::params::proxy_type,
+    require      => Class['ant'],
   }
-
 }

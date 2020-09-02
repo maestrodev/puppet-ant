@@ -3,26 +3,30 @@
 # ==Parameters
 #
 # [version]  The Ant version to install.
-class ant($version = $ant::params::version) inherits ant::params {
-  $srcdir = $ant::params::srcdir
+class ant(
+  $version         = $ant::params::version,
+  $srcdir          = $ant::params::srcdir,
+  $checksum_verify = $ant::params::checksum_verify,
+  $checksum        = $ant::params::checksum,
+  $proxy_server    = $ant::params::proxy_server,
+  $proxy_type      = $ant::params::proxy_type,
+  
+  ) inherits ant::params {
+  include 'archive'
 
-  case $::kernel {
-    'Linux': {
-      ensure_packages(['tar'])
-      Package['tar'] -> Exec['unpack-ant']
-    }
-    default: {}
-  }
-
-  wget::fetch { 'ant':
-    source      =>  "http://archive.apache.org/dist/ant/binaries/apache-ant-${version}-bin.tar.gz",
-    destination => "${srcdir}/apache-ant-${version}-bin.tar.gz"
-  } ->
-  exec { 'unpack-ant':
-    command => "tar zxvf ${srcdir}/apache-ant-${version}-bin.tar.gz",
-    cwd     => '/usr/share/',
-    creates => "/usr/share/apache-ant-${version}",
-    path    => '/bin/:/usr/bin',
+  archive { "${srcdir}/apache-ant-${version}-bin.tar.gz":
+    ensure          => present,
+    extract         => true,
+    extract_command => 'tar zxvf %s',
+    extract_path    => '/usr/share/',
+    source          => "https://archive.apache.org/dist/ant/binaries/apache-ant-${version}-bin.tar.gz",
+    creates         => "/usr/share/apache-ant-${version}",
+    cleanup         => true,
+    checksum_verify => $checksum_verify,
+    checksum_type   => 'md5',
+    checksum        => $checksum,
+    proxy_server    => $proxy_server,
+    proxy_type      => $proxy_type,
   } ->
   file { '/usr/bin/ant':
     ensure => link,
